@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nuova Ispezione</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>➕ Nuova Ispezione</h1>
+    <input id="nome" placeholder="Nome arnia">
+    <input id="luogo" placeholder="Luogo">
+    <input id="data" type="date">
+    <input id="telai" placeholder="Numero telai" type="number">
+    <label><input id="regina" type="checkbox"> Ape Regina</label>
+    <label><input id="covata" type="checkbox"> Covata</label>
+    <label><input id="melario" type="checkbox"> Melario</label>
+    <label><input id="candito" type="checkbox"> Candito</label>
+    <textarea id="note" placeholder="Note"></textarea>
+    <button onclick="saveIspezione()">Salva</button>
+    <button onclick="location.href='index.html'">🏠 Torna alla Home</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
