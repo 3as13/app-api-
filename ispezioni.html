@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ispezioni</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Ispezioni</h1>
+    <div id="container"></div>
+    <button onclick="location.href='luoghi.html'">🔙 Torna ai Luoghi</button>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script>
+  
+const firebaseConfig = {
+  apiKey: "AIzaSyDUtUTIrTP0ynKIgmrwmggXaBYdHt2koMs",
+  authDomain: "ispezioni-api.firebaseapp.com",
+  projectId: "ispezioni-api",
+  storageBucket: "ispezioni-api.firebasestorage.app",
+  messagingSenderId: "1030459213956",
+  appId: "1:1030459213956:web:899a986c03d6a16e139ad1"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+  </script>
+  <script>
+  const luogo = localStorage.getItem("luogo");
+  db.collection("ispezioni").where("luogo", "==", luogo).get().then(snap => {
+    const div = document.getElementById('container');
+    div.innerHTML = "<h2>Luogo: " + luogo + "</h2>";
+    snap.forEach(doc => {
+      const d = doc.data();
+      const c = document.createElement('div');
+      c.className = "card";
+      c.innerHTML = `
+        <strong>Arnia:</strong> ${d.nome}<br>
+        <strong>Data:</strong> ${d.data}<br>
+        <strong>Telai:</strong> ${d.telai}<br>
+        <strong>Regina:</strong> ${d.regina ? 'Sì' : 'No'}<br>
+        <strong>Covata:</strong> ${d.covata ? 'Sì' : 'No'}<br>
+        <strong>Melario:</strong> ${d.melario ? 'Sì' : 'No'}<br>
+        <strong>Candito:</strong> ${d.candito ? 'Sì' : 'No'}<br>
+        <strong>Note:</strong> ${d.note || ''}<br>`;
+      div.appendChild(c);
+    });
+  });
+  </script>
+</body>
+</html>

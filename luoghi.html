@@ -3,16 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🐝 Gestione Ispezioni</title>
+  <title>📂 Luoghi</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>🐝 Gestione Ispezioni</h1>
-    <button onclick="location.href='nuova.html'">➕ Nuova Ispezione</button>
-    <button onclick="location.href='luoghi.html'">📂 Visualizza Ispezioni</button>
-    <input type="text" id="searchInput" placeholder="🔍 Cerca ispezioni..." oninput="cerca()">
-    <ul id="searchResults"></ul>
+    <h1>📂 Ispezioni per Luogo</h1>
+    <div id="luoghi"></div>
+    <button onclick="location.href='index.html'">🏠 Torna alla Home</button>
   </div>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -30,6 +28,6 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
   </script>
-  <script src="search.js"></script>
+  <script src="luoghi.js"></script>
 </body>
 </html>
