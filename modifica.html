@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✏️ Modifica Ispezione</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>✏️ Modifica Ispezione</h1>
+    <form id="form">
+      <input type="date" id="data" required />
+      <input type="text" id="nome" placeholder="Nome Arnia" required />
+      <input type="text" id="luogo" placeholder="Luogo" required />
+      <input type="number" id="telai" placeholder="Numero telai" required />
+      <label><input type="checkbox" id="regina" /> Regina presente</label><br>
+      <label><input type="checkbox" id="covata" /> Covata presente</label><br>
+      <label><input type="checkbox" id="melario" /> Melario presente</label><br>
+      <label><input type="checkbox" id="candito" /> Candito presente</label><br>
+      <textarea id="note" placeholder="Note aggiuntive"></textarea>
+      <button type="submit">💾 Salva Modifiche</button>
+    </form>
+    <button onclick="history.back()">🔙 Indietro</button>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDUtUTIrTP0ynKIgmrwmggXaBYdHt2koMs",
+      authDomain: "ispezioni-api.firebaseapp.com",
+      projectId: "ispezioni-api",
+      storageBucket: "ispezioni-api.firebasestorage.app",
+      messagingSenderId: "1030459213956",
+      appId: "1:1030459213956:web:899a986c03d6a16e139ad1"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+  <script src="modifica.js"></script>
+</body>
+</html>

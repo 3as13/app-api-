@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📋 Ispezioni Arnia</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .menu {
+      position: relative;
+      display: inline-block;
+    }
+    .menu-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      right: 0;
+      z-index: 1;
+    }
+    .menu:hover .menu-content {
+      display: block;
+    }
+    .menu-content button {
+      width: 100%;
+      border: none;
+      padding: 8px;
+      text-align: left;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="title">📋 Ispezioni Arnia</h1>
+    <div id="ispezioniList"></div>
+    <button onclick="history.back()">🔙 Indietro</button>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDUtUTIrTP0ynKIgmrwmggXaBYdHt2koMs",
+      authDomain: "ispezioni-api.firebaseapp.com",
+      projectId: "ispezioni-api",
+      storageBucket: "ispezioni-api.firebasestorage.app",
+      messagingSenderId: "1030459213956",
+      appId: "1:1030459213956:web:899a986c03d6a16e139ad1"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const luogo = params.get("luogo");
+    const arnia = params.get("arnia");
+    document.getElementById("title").innerText = `🐝 ${arnia} (${luogo})`;
+
+    db.collection("ispezioni")
+      .where("luogo", "==", luogo)
+      .where("nome", "==", arnia)
+      .orderBy("data", "desc")
+      .get()
+      .then(snapshot => {
+        const list = document.getElementById("ispezioniList");
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          const div = document.createElement("div");
+          div.classList.add("card");
+          div.innerHTML = `
+            <div style="display:flex; justify-content:space-between;">
+              <strong>${d.data}</strong>
+              <div class="menu">
+                <span>⋮</span>
+                <div class="menu-content">
+                  <button onclick="location.href='modifica.html?id=${doc.id}'">✏️ Modifica</button>
+                  <button onclick="elimina('${doc.id}')">🗑️ Elimina</button>
+                </div>
+              </div>
+            </div>
+            Telai: ${d.telai}<br>
+            Regina: ${d.regina ? "✅" : "❌"} | Covata: ${d.covata ? "✅" : "❌"}<br>
+            Melario: ${d.melario ? "✅" : "❌"} | Candito: ${d.candito ? "✅" : "❌"}<br>
+            <em>${d.note || ""}</em>
+          `;
+          list.appendChild(div);
+        });
+      });
+
+    function elimina(id) {
+      if (confirm("Eliminare questa ispezione?")) {
+        db.collection("ispezioni").doc(id).delete().then(() => {
+          alert("Ispezione eliminata!");
+          location.reload();
+        });
+      }
+    }
+  </script>
+</body>
+</html>
