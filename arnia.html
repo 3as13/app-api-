@@ -10,6 +10,11 @@
       position: relative;
       display: inline-block;
     }
+    .menu span {
+      font-size: 20px;
+      cursor: pointer;
+      padding: 5px;
+    }
     .menu-content {
       display: none;
       position: absolute;
@@ -17,6 +22,7 @@
       border: 1px solid #ccc;
       right: 0;
       z-index: 1;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     .menu:hover .menu-content {
       display: block;
@@ -27,6 +33,10 @@
       padding: 8px;
       text-align: left;
       background: white;
+      cursor: pointer;
+    }
+    .menu-content button:hover {
+      background-color: #f0f0f0;
     }
   </style>
 </head>
@@ -71,7 +81,7 @@
           const div = document.createElement("div");
           div.classList.add("card");
           div.innerHTML = `
-            <div style="display:flex; justify-content:space-between;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>${d.data}</strong>
               <div class="menu">
                 <span>⋮</span>
